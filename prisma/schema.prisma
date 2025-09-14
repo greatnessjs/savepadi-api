@@ -86,6 +86,7 @@ model User {
   password      String
   kycStatus     KYCStatus @default(PENDING)
   isVerified    Boolean   @default(false)
+  emailToken    String?
   pin           String?
   hasPin        Boolean   @default(false)
   isBvnVerified Boolean   @default(false)
