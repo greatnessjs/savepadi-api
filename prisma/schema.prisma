@@ -1,3 +1,12 @@
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -91,6 +100,7 @@ model User {
   hasPin        Boolean   @default(false)
   isBvnVerified Boolean   @default(false)
   isDisabled    Boolean   @default(false)
+  isAdmin       Boolean   @default(false)
 
   kyc                KYC[]
   wallet             Wallet[]
@@ -102,6 +112,7 @@ model User {
   disputesAgainst    Dispute[]                 @relation("AgainstUser")
   messages           Message[]
   approver           ContributionApproval[]    @relation("UserApprovals")
+  notifications      Notification[]
   createdAt          DateTime                  @default(now())
 }
 

@@ -1,7 +1,15 @@
+
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import prisma from "../server/connections/prisma";
 import { AuthenticatedUser } from "./commonInterface";
+
+export const requireAdmin = (request: AuthenticatedUser, response: Response, next: NextFunction) => {
+  if (!request.user || !request.user.isAdmin) {
+    return response.status(403).json({ success: false, message: "Admin access required" });
+  }
+  next();
+};
 
 export const authenticateUser = async (
   request: AuthenticatedUser,
